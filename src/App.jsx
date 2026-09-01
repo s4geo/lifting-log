@@ -77,18 +77,50 @@ export default function App() {
     setView({ name: "home" });
   };
 
-  const signIn = async () => {
+    const signIn = async () => {
     if (!supabase) return alert("Supabase keys aren't set in this build.");
     const addr = prompt("Email address:");
     if (!addr) return;
-    const { error } = await supabase.auth.signInWithOtp({ email: addr.trim() });
-    if (error) return alert(`Couldn't send it: ${error.message}`);
-    const token = prompt("Enter the 6-digit code from your email:");
-    if (!token) return;
-    const { error: e2 } = await supabase.auth.verifyOtp({
-      email: addr.trim(), token: token.trim(), type: "email",
-    });
-    alert(e2 ? `Code rejected: ${e2.message}` : "Signed in.");
+    const email = addr.trim();
+
+    const { error } = await supabase.auth.signInWithOtp({ email });
+    if (error) {
+      const wait = /rate limit|too many/i.test(error.message)
+        ? "\n\nSupabase allows 2 auth emails an hour on the free tier. Try again on the hour."
+        : "";
+      return alert(`Couldn't send it: ${error.message}${wait}`);
+    }
+
+    const pasted = prompt(
+      "Check your email.\n\n" +
+      "Either type the 6-digit code, or long-press the button in the email, " +
+      "Copy Link, and paste the whole thing here:"
+    );
+    if (!pasted) return;
+
+    // Accept a bare 6-digit code, or dig the token out of a pasted magic link.
+    const raw = pasted.trim();
+    const match =
+      raw.match(/^\d{6}$/) ||
+      raw.match(/[?&#](?:token|otp)=([^&#\s]+)/) ||
+      raw.match(/\b(\d{6})\b/);
+    if (!match) return alert("Couldn't find a code or token in that.");
+    const token = match[1] || match[0];
+
+    // A pasted link carries a token_hash; a typed code is an OTP. Try both.
+    let signedIn = false;
+    let lastError = null;
+    for (const attempt of [
+      () => supabase.auth.verifyOtp({ email, token, type: "email" }),
+      () => supabase.auth.verifyOtp({ token_hash: token, type: "email" }),
+      () => supabase.auth.verifyOtp({ token_hash: token, type: "magiclink" }),
+    ]) {
+      const { error: e } = await attempt();
+      if (!e) { signedIn = true; break; }
+      lastError = e;
+    }
+
+    alert(signedIn ? "Signed in." : `Rejected: ${lastError?.message || "unknown error"}`);
   };
 
   const program = cycle ? getProgram(cycle.program_id, cycle.program_version) : null;
