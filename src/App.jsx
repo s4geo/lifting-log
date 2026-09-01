@@ -101,9 +101,9 @@ export default function App() {
     // Accept a bare 6-digit code, or dig the token out of a pasted magic link.
     const raw = pasted.trim();
     const match =
-      raw.match(/^\d{6}$/) ||
+      raw.match(/^[0-9]{6,10}$/) ||
       raw.match(/[?&#](?:token|otp)=([^&#\s]+)/) ||
-      raw.match(/\b(\d{6})\b/);
+      raw.match(/\b([0-9]{6,10})\b/);
     if (!match) return alert("Couldn't find a code or token in that.");
     const token = match[1] || match[0];
 
