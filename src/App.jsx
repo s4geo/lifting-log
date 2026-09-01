@@ -78,11 +78,17 @@ export default function App() {
   };
 
   const signIn = async () => {
-    if (!supabase) return alert("Add your Supabase URL and key to .env, then rebuild.");
-    const addr = prompt("Email address for your magic sign-in link:");
+    if (!supabase) return alert("Supabase keys aren't set in this build.");
+    const addr = prompt("Email address:");
     if (!addr) return;
-    const { error } = await supabase.auth.signInWithOtp({ email: addr, options: { emailRedirectTo: window.location.origin } });
-    alert(error ? `Couldn't send it: ${error.message}` : "Check your email for the sign-in link.");
+    const { error } = await supabase.auth.signInWithOtp({ email: addr.trim() });
+    if (error) return alert(`Couldn't send it: ${error.message}`);
+    const token = prompt("Enter the 6-digit code from your email:");
+    if (!token) return;
+    const { error: e2 } = await supabase.auth.verifyOtp({
+      email: addr.trim(), token: token.trim(), type: "email",
+    });
+    alert(e2 ? `Code rejected: ${e2.message}` : "Signed in.");
   };
 
   const program = cycle ? getProgram(cycle.program_id, cycle.program_version) : null;
