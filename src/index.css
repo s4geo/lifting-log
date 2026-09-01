@@ -1,0 +1,10 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #15171A; -webkit-text-size-adjust: 100%; }
+body { overscroll-behavior-y: none; }
+button { cursor: pointer; font-family: inherit; }
+input, textarea, select { font-family: inherit; outline: none; }
+input::placeholder, textarea::placeholder { color: #8B939C; opacity: .6; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #ECE7DC; outline-offset: 2px; }
+.row { display: flex; align-items: center; }
+ol, ul { margin: 0; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

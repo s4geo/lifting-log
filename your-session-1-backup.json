@@ -1,0 +1,303 @@
+{
+  "version": 2,
+  "exported_at": "2026-09-01T10:41:39.555Z",
+  "cycles": [
+    {
+      "id": "eafeb42a-a91c-49e3-b133-2fbbac06cbff",
+      "program_id": "arnold-6day",
+      "program_version": 1,
+      "name": "arnold_6day_1",
+      "status": "active",
+      "started_on": "2026-08-31",
+      "ended_on": null,
+      "notes": "Imported from the original tracker",
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "cycle_id": "eafeb42a-a91c-49e3-b133-2fbbac06cbff",
+      "program_id": "arnold-6day",
+      "program_version": 1,
+      "slot_index": 0,
+      "block_no": 1,
+      "phase": "base",
+      "kind": "lift",
+      "session_key": "A",
+      "performed_on": "2026-08-31",
+      "done": true,
+      "mode": null,
+      "distance": null,
+      "duration": null,
+      "notes": null,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    }
+  ],
+  "sets": [
+    {
+      "id": "d33395cd-0929-473e-966d-ad47c261024f",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "incline-barbell-press",
+      "set_no": 1,
+      "weight": 24,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "b879d53d-8015-4e41-b041-8ec094f1acb6",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "incline-barbell-press",
+      "set_no": 2,
+      "weight": 26,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "a5fb2e51-0c82-4c8f-b456-d045a79e2be4",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "incline-barbell-press",
+      "set_no": 3,
+      "weight": 26,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "229f20fe-9f83-42e4-a623-b591cfa463cf",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "incline-barbell-press",
+      "set_no": 4,
+      "weight": 26,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "6547a94d-b0d5-440c-83fe-50cd1d939ce7",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "wide-grip-pulldown",
+      "set_no": 1,
+      "weight": 50,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "1df9fe49-1e26-4cd1-afee-362e899c39d6",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "wide-grip-pulldown",
+      "set_no": 2,
+      "weight": 55,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "90a27102-d171-40d8-84d3-80b30fa05004",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "wide-grip-pulldown",
+      "set_no": 3,
+      "weight": 55,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "cd0e2100-ee65-4084-8470-9957f9220ae7",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "wide-grip-pulldown",
+      "set_no": 4,
+      "weight": 60,
+      "weight_unit": "kg",
+      "reps": 8,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "f10c2b24-0768-4e04-8691-765f792be2fe",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "flat-db-press",
+      "set_no": 1,
+      "weight": 30,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "36e4ea95-6ac6-4bc6-9845-8cf23331dfba",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "flat-db-press",
+      "set_no": 2,
+      "weight": 30,
+      "weight_unit": "kg",
+      "reps": 10,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "c1c4f5f5-64fc-4235-b60e-f1009c61d2b1",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "flat-db-press",
+      "set_no": 3,
+      "weight": 30,
+      "weight_unit": "kg",
+      "reps": 8,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "6fe97122-49f3-4fc7-82cf-873177091dfc",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "barbell-row",
+      "set_no": 1,
+      "weight": 30,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "f201fed0-c43a-454a-aad1-0d6cd7e2d0f6",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "barbell-row",
+      "set_no": 2,
+      "weight": 40,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "f6daeb94-b0a9-4b3e-9139-c507b44d55ec",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "barbell-row",
+      "set_no": 3,
+      "weight": 40,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "c306b13e-db70-40dc-84f1-b65c1c8b931c",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "cable-fly",
+      "set_no": 1,
+      "weight": 17.5,
+      "weight_unit": "kg",
+      "reps": 15,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "431f33c5-54f6-445e-a989-9671723b335e",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "cable-fly",
+      "set_no": 2,
+      "weight": 20,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "65b02ce9-8aaa-4369-a558-a707d959be10",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "cable-fly",
+      "set_no": 3,
+      "weight": 20,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "ea46c303-6402-4f4c-ba9f-ed9cdf0063bd",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "seated-cable-row",
+      "set_no": 1,
+      "weight": 17.5,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "91deb5ed-0495-4217-80b2-ebc07a56020d",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "seated-cable-row",
+      "set_no": 2,
+      "weight": 20,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "f98875f0-a4af-4390-892d-8d5f07c263cf",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "seated-cable-row",
+      "set_no": 3,
+      "weight": 20,
+      "weight_unit": "kg",
+      "reps": 12,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "e738ebf4-9441-4d7d-9402-b9c9b431d2e1",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "dips",
+      "set_no": 1,
+      "weight": 0,
+      "weight_unit": "kg",
+      "reps": 20,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "1b5be468-040a-4a5b-a716-b68cde0a64e9",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "dips",
+      "set_no": 2,
+      "weight": 0,
+      "weight_unit": "kg",
+      "reps": 15,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "041bfa1f-eb75-4101-8800-7af90fda4001",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "straight-arm-pulldown",
+      "set_no": 1,
+      "weight": 27.5,
+      "weight_unit": "kg",
+      "reps": 15,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    },
+    {
+      "id": "964a55a1-0ddb-47d3-bd9d-c86067b6aff0",
+      "session_id": "226e3d83-f408-4aab-893b-4919a0cec748",
+      "exercise_id": "straight-arm-pulldown",
+      "set_no": 2,
+      "weight": 27.5,
+      "weight_unit": "kg",
+      "reps": 15,
+      "done": true,
+      "updated_at": "2026-09-01T10:41:39.555Z"
+    }
+  ]
+}

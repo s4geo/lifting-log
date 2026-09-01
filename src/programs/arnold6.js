@@ -1,0 +1,129 @@
+/*
+ * A programme definition. Self-contained data — no logic.
+ *
+ * PERMANENT THINGS (never change these once you've trained under them):
+ *   - `id` on the programme
+ *   - `id` on every exercise
+ *   - `version`, once published
+ *
+ * Phases carry explicit slot ranges, so a programme can have any number of
+ * them, of any length, named whatever you like.
+ */
+
+const ex = (id, name, sets, reps, rest, pair = null, opts = {}) => ({ id, name, sets, reps, rest, pair, ...opts });
+
+export const program = {
+  id: "arnold-6day",
+  version: 2,
+  name: "Arnold rolling six-day block",
+  blocks: 9,
+
+  slots: [
+    { kind: "lift", key: "A" },
+    { kind: "lift", key: "B" },
+    { kind: "steady" },
+    { kind: "lift", key: "C" },
+    { kind: "lift", key: "D" },
+    { kind: "intervals" },
+  ],
+
+  // from/to are inclusive slot indices. Change the shape freely in a new version.
+  phases: [
+    { id: "base", name: "Base", color: "#2F6BB0", kg: "20", from: 0,  to: 17,
+      note: "Straight sets, no intensity tricks. Hit the top of every rep range on every set before you add load." },
+    { id: "load", name: "Load", color: "#E5A912", kg: "15", from: 18, to: 35,
+      note: "First lift drops to 6-8 reps and goes heavier. Drop sets come in on one nominated move per session." },
+    { id: "peak", name: "Peak", color: "#C93A2B", kg: "25", from: 36, to: 53,
+      note: "Reps back up, drop sets stay, and the opening compound gets rest-pause. Expect to finish this phase ready for a week off." },
+  ],
+
+  tech: {
+  drop: {
+    label: "Drop set",
+    when: "Final set only",
+    steps: [
+      "Take the last set to the point where the next rep would stall.",
+      "Strip 25-30% of the load in under 10 seconds. On a stack, pin down 2-3 plates. Don't sit down.",
+      "Go again to that same stall point. Expect roughly half the reps.",
+      "Blocks 4-5: one drop. Block 6 onward: two drops, 20-25% off each time.",
+    ],
+  },
+  rp: {
+    label: "Rest-pause",
+    when: "Final set only",
+    steps: [
+      "Take the last set to one rep short of failure, then rack it.",
+      "Stand and breathe for 15 seconds. About five slow breaths, no more.",
+      "Same weight, go again for whatever you get. Rack, 15 seconds, one more mini-set.",
+      "Expect roughly 8 / 4 / 2. If mini-set two beats half of set one, add load next time.",
+      "Machine, spotter, or safety pins. This is not the place to be brave.",
+    ],
+  },
+  },
+
+  sessions: {
+  A: {
+    letter: "A", title: "Chest + Back", sub: "Every move paired",
+    ex: [
+      ex("incline-barbell-press", "Incline barbell press", 4, "8-10", 90, 1, { loadReps: "6-8", tech: "rp" }),
+      ex("wide-grip-pulldown", "Wide-grip pull-up / pulldown", 4, "8-12", 90, 1),
+      ex("flat-db-press", "Flat dumbbell press", 3, "10-12", 75, 2),
+      ex("barbell-row", "Barbell row", 3, "10", 75, 2),
+      ex("cable-fly", "Cable fly", 3, "12-15", 60, 3, { tech: "drop" }),
+      ex("seated-cable-row", "Seated cable row", 3, "12", 60, 3),
+      ex("dips", "Dips", 2, "AMRAP", 60, 4),
+      ex("straight-arm-pulldown", "Straight-arm pulldown", 2, "15", 60, 4),
+    ],
+  },
+  B: {
+    letter: "B", title: "Legs", sub: "Heavy work first, then paired",
+    ex: [
+      ex("back-squat", "Back squat", 4, "8-10", 90, null, { loadReps: "6-8" }),
+      ex("leg-press", "Leg press", 3, "12-15", 75, null, { tech: "rp" }),
+      ex("romanian-deadlift", "Romanian deadlift", 3, "10", 90),
+      ex("leg-extension", "Leg extension", 3, "15", 60, 1, { tech: "drop" }),
+      ex("lying-leg-curl", "Lying leg curl", 3, "12", 60, 1),
+      ex("standing-calf-raise", "Standing calf raise", 4, "15-20", 60, 2),
+      ex("hanging-knee-raise", "Hanging knee raise", 4, "12", 60, 2),
+    ],
+  },
+  C: {
+    letter: "C", title: "Shoulders + Arms", sub: "Delts first, arms in pairs",
+    ex: [
+      ex("arnold-press", "Arnold press", 4, "8-10", 90, null, { loadReps: "6-8", tech: "rp" }),
+      ex("lateral-raise", "Lateral raise", 4, "12-15", 60, 1, { tech: "drop" }),
+      ex("rear-delt-fly", "Rear delt fly", 4, "15", 60, 1),
+      ex("cable-upright-row", "Cable upright row", 3, "12", 60),
+      ex("barbell-curl", "Barbell curl", 3, "10", 75, 2),
+      ex("close-grip-bench", "Close-grip bench", 3, "10", 75, 2),
+      ex("incline-db-curl", "Incline dumbbell curl", 3, "12", 60, 3),
+      ex("rope-pushdown", "Rope pushdown", 3, "12-15", 60, 3),
+      ex("hammer-curl", "Hammer curl", 2, "12", 60, 4),
+      ex("overhead-cable-ext", "Overhead cable extension", 2, "12", 60, 4),
+    ],
+  },
+  D: {
+    letter: "D", title: "Chest + Back", sub: "Pump work, new angles",
+    ex: [
+      ex("weighted-dips", "Weighted dips / decline press", 4, "10-12", 75, 1, { loadReps: "8-10", tech: "rp" }),
+      ex("chest-supported-row", "Chest-supported row", 4, "10-12", 75, 1),
+      ex("db-pullover", "Dumbbell pullover", 3, "12", 60, 2),
+      ex("face-pull", "Face pull", 3, "15", 60, 2),
+      ex("incline-db-fly", "Incline dumbbell fly", 3, "12-15", 60, 3, { tech: "drop" }),
+      ex("single-arm-pulldown", "Single-arm lat pulldown", 3, "12 / side", 60, 3),
+      ex("ez-curl", "EZ-bar curl", 2, "15", 60, 4),
+      ex("triceps-pushdown", "Triceps pushdown", 2, "15", 60, 4),
+      ex("cable-crunch", "Cable crunch", 3, "15", 60),
+    ],
+  },
+  },
+
+  modes: {
+  run:   { label: "Run",     protocol: "6 x 3 min hard / 90 s jog",  unit: "km" },
+  rower: { label: "Rower",   protocol: "8 x 30 s hard / 90 s easy",  unit: "m" },
+  ski:   { label: "Ski erg", protocol: "8 x 30 s hard / 90 s easy",  unit: "m" },
+  bike:  { label: "Bike",    protocol: "8 x 30 s hard / 90 s easy",  unit: "km" },
+  },
+};
+
+export default program;
