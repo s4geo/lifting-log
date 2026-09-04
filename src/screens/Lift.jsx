@@ -13,6 +13,11 @@ export default function Lift({ program, session, back }) {
   const pi = phaseIdx(program, session.slot_index);
   const groups = useMemo(() => groupsFor(day), [day]);
 
+
+  const [rows, setRows] = useState({});
+  const [restEnds, setRestEnds] = useState(null);
+  const [lastFor, setLastFor] = useState({});   // exercise_id -> history
+  const [date, setDateState] = useState(session.performed_on || todayISO());
   const tips = useMemo(() => {
     const out = {};
     day.ex.forEach((x) => {
@@ -22,11 +27,6 @@ export default function Lift({ program, session, back }) {
     });
     return out;
   }, [day, lastFor, pi]);
-
-  const [rows, setRows] = useState({});
-  const [restEnds, setRestEnds] = useState(null);
-  const [lastFor, setLastFor] = useState({});   // exercise_id -> history
-  const [date, setDateState] = useState(session.performed_on || todayISO());
 
   const reload = async () => {
     const all = await setsForSession(session.id);
