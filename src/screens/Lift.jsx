@@ -4,6 +4,7 @@ import { slotAt, phaseOf, phaseIdx, blockOf, totalSlots, groupsFor } from "../pr
 import { db, patchSession, putSet, setsForSession } from "../db";
 import { SetRow, TechCard, RestBar, FinishButton, Eyebrow } from "../components";
 import { todayISO, num, int, e1rm } from "../lib";
+import { suggest } from "../progression";
 
 export default function Lift({ program, session, back }) {
   const slot = slotAt(program, session.slot_index);
@@ -12,9 +13,19 @@ export default function Lift({ program, session, back }) {
   const pi = phaseIdx(program, session.slot_index);
   const groups = useMemo(() => groupsFor(day), [day]);
 
+  const tips = useMemo(() => {
+    const out = {};
+    day.ex.forEach((x) => {
+      const reps = pi === 1 && x.loadReps ? x.loadReps : x.reps;
+      const t = suggest({ exerciseId: x.id, prescribedReps: reps, history: lastFor[x.id] });
+      if (t) out[x.id] = t;
+    });
+    return out;
+  }, [day, lastFor, pi]);
+
   const [rows, setRows] = useState({});
   const [restEnds, setRestEnds] = useState(null);
-  const [lastFor, setLastFor] = useState({});
+  const [lastFor, setLastFor] = useState({});   // exercise_id -> history
   const [date, setDateState] = useState(session.performed_on || todayISO());
 
   const reload = async () => {
@@ -26,19 +37,32 @@ export default function Lift({ program, session, back }) {
 
   useEffect(() => { reload(); }, [session.id]);
 
-  // "Last: 26 kg" — the heaviest you used for this move in any earlier session.
+  // Per-exercise history, newest first, used to propose the next weight.
   useEffect(() => {
     (async () => {
       const sessions = await db.sessions.toArray();
-      const older = sessions.filter((s) => s.id !== session.id && s.performed_on);
-      const ids = new Set(older.map((s) => s.id));
+      const done = sessions
+        .filter((x) => x.id !== session.id && x.performed_on)
+        .sort((a, b) => b.performed_on.localeCompare(a.performed_on));
       const all = await db.sets.toArray();
-      const best = {};
-      all.filter((r) => ids.has(r.session_id) && num(r.weight) !== null).forEach((r) => {
-        const w = num(r.weight);
-        if (!best[r.exercise_id] || w > best[r.exercise_id]) best[r.exercise_id] = w;
+      const bySession = {};
+      all.forEach((r) => { (bySession[r.session_id] = bySession[r.session_id] || []).push(r); });
+
+      const hist = {};
+      done.forEach((x) => {
+        (bySession[x.id] || []).forEach((r) => {
+          if (r.weight == null && r.reps == null) return;
+          hist[r.exercise_id] = hist[r.exercise_id] || [];
+          let entry = hist[r.exercise_id].find((e) => e.performed_on === x.performed_on);
+          if (!entry) { entry = { performed_on: x.performed_on, sets: [] }; hist[r.exercise_id].push(entry); }
+          entry.sets.push({ weight: r.weight, reps: r.reps });
+        });
       });
-      setLastFor(best);
+      Object.values(hist).forEach((list) => {
+        list.sort((a, b) => b.performed_on.localeCompare(a.performed_on));
+        list.forEach((e) => e.sets.sort((a, b) => (a.set_no || 0) - (b.set_no || 0)));
+      });
+      setLastFor(hist);
     })();
   }, [session.id]);
 
@@ -102,6 +126,18 @@ export default function Lift({ program, session, back }) {
                 })}
               </div>
 
+              {g.items.map((it, k) => {
+                const tip = tips[it.x.id];
+                if (!tip) return null;
+                const tone = tip.kind === "up" ? C.green : tip.kind === "deload" ? C.yellow : C.steel;
+                return (
+                  <div key={`tip${k}`} style={{ color: tone, fontSize: 12, marginTop: 5, lineHeight: 1.4 }}>
+                    {g.items.length > 1 ? `${String.fromCharCode(97 + k)} ` : ""}
+                    <strong style={{ fontFamily: mono, fontWeight: 600 }}>{tip.weight} kg</strong> — {tip.reason}
+                  </div>
+                );
+              })}
+
               {isSS && <div style={{ color: C.steel, fontSize: 12, marginTop: 6 }}>Straight from a into b, no rest. Rest {rest}s after b.</div>}
 
               <div style={{ marginTop: 12 }}>
@@ -112,13 +148,14 @@ export default function Lift({ program, session, back }) {
                       if (si >= it.x.sets) return null;
                       const key = `${it.x.id}|${si + 1}`;
                       const row = rows[key] || {};
+                      const tip = tips[it.x.id];
                       return (
                         <div key={k} style={{ marginBottom: 6 }}>
                           <SetRow
                             label={isSS ? `${String.fromCharCode(97 + k)} ${it.x.name.split(" ")[0]}` : `Set ${si + 1}`}
                             row={row}
                             accent={phase.color}
-                            placeholder={lastFor[it.x.id] ?? "kg"}
+                            placeholder={tip ? String(tip.weight) : "kg"}
                             onChange={(f, v) => change(it.x.id, si + 1, f, v)}
                             onTick={() => tick(it.x.id, si + 1, rest, k === g.items.length - 1)}
                           />
