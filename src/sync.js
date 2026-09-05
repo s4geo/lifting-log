@@ -9,7 +9,7 @@ export const supabase = url && key ? createClient(url, key, { auth: { persistSes
 export const syncConfigured = () => Boolean(supabase);
 
 const strip = (row) => {
-  const { dirty, ...rest } = row;
+  const { dirty, user_id, ...rest } = row;   // let the DB set user_id from your token
   return rest;
 };
 
