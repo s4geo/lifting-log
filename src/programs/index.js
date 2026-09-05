@@ -1,5 +1,6 @@
 import { program as arnold6 } from "./arnold6";
 import { program as arnold6v1 } from "./arnold6.v1";
+import { program as arnoldGym6 } from "./arnoldgym6";
 import { program as upperLower } from "./template";
 
 /*
@@ -12,6 +13,7 @@ import { program as upperLower } from "./template";
 export const PROGRAMS = {
   [`${arnold6.id}@${arnold6.version}`]: arnold6,
   [`${arnold6v1.id}@${arnold6v1.version}`]: arnold6v1,   // kept so v1 history still renders
+  [`${arnoldGym6.id}@${arnoldGym6.version}`]: arnoldGym6,
   [`${upperLower.id}@${upperLower.version}`]: upperLower,
 };
 

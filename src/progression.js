@@ -14,15 +14,20 @@
 const KG = {
   // Barbell, lower body — the big jumps
   "back-squat": 5, "romanian-deadlift": 5, "deadlift": 5, "front-squat": 5,
-  "leg-press": 10,
+  "leg-press": 10, "front-squat": 5, "bulgarian-split-squat": 2, "hip-thrust": 5,
 
   // Barbell, upper body
-  "incline-barbell-press": 2.5, "flat-barbell-bench": 2.5, "barbell-row": 2.5,
-  "close-grip-bench": 2.5, "barbell-curl": 2.5, "ez-curl": 2.5,
+  "barbell-row": 2.5, "barbell-curl": 2.5, "ez-curl": 2.5, "flat-barbell-bench": 2.5,
+
+  // Smith machine — 1.25 kg plates a side
+  "smith-wide-press": 2.5, "close-grip-bench": 2.5,
 
   // Dumbbells — next pair up, usually 2 kg
-  "flat-db-press": 2, "arnold-press": 2, "incline-db-curl": 2, "hammer-curl": 2,
+  // Dumbbells — next pair up. incline-barbell-press keeps its id for history;
+  // the movement has always been dumbbells.
+  "incline-barbell-press": 2, "flat-db-press": 2, "arnold-press": 2, "incline-db-curl": 2, "hammer-curl": 2,
   "db-pullover": 2, "incline-db-fly": 2, "lateral-raise": 2, "rear-delt-fly": 2,
+  "seated-db-press": 2,
 
   // Cables and stacks — one pin
   "cable-fly": 2.5, "seated-cable-row": 5, "wide-grip-pulldown": 5,
@@ -30,7 +35,7 @@ const KG = {
   "cable-upright-row": 2.5, "face-pull": 2.5, "single-arm-pulldown": 2.5,
   "chest-supported-row": 5, "pec-deck": 5, "triceps-pushdown": 2.5,
   "leg-extension": 5, "lying-leg-curl": 5, "standing-calf-raise": 5,
-  "cable-crunch": 5, "weighted-dips": 2.5,
+  "cable-crunch": 5, "weighted-dips": 2.5, "machine-chest-press": 5, "seated-calf-raise": 5, "flat-db-fly": 2,
 };
 
 export const incrementFor = (id) => KG[id] ?? 2.5;
