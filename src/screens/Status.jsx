@@ -100,6 +100,7 @@ export default function Status({ back, status, email }) {
           {row("Signed in", email || "No", email ? C.chalk : C.yellow)}
           {row("Last sync", fmtTime(status.lastSyncAt))}
           {check && !check.ok && row("Server check", check.reason, C.yellow)}
+          {status.lastError && row("Last error", status.lastError, C.red)}
           {check?.ok && row("Server holds", `${check.remote.sessions} sessions · ${check.remote.sets} sets`, serverMatches ? C.green : C.yellow)}
         </div>
         <button

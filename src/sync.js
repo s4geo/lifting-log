@@ -14,6 +14,26 @@ const strip = (row) => {
 };
 
 /*
+ * A session whose cycle no longer exists can never be displayed, but it will
+ * fail the foreign key on push and take the whole batch down with it — so one
+ * stale row blocks every future sync. Clear them out first.
+ */
+async function dropOrphans() {
+  const cycleIds = new Set((await db.cycles.toArray()).map((c) => c.id));
+  const sessions = await db.sessions.toArray();
+  const orphanSessions = sessions.filter((s) => !s.cycle_id || !cycleIds.has(s.cycle_id));
+  if (!orphanSessions.length) return;
+
+  const ids = new Set(orphanSessions.map((s) => s.id));
+  const sets = await db.sets.toArray();
+  await db.transaction("rw", db.sessions, db.sets, async () => {
+    await db.sets.bulkDelete(sets.filter((x) => ids.has(x.session_id)).map((x) => x.id));
+    await db.sessions.bulkDelete([...ids]);
+  });
+  console.warn(`Dropped ${orphanSessions.length} orphaned session(s) with no cycle.`);
+}
+
+/*
  * Two devices that both create a session for the same slot while offline will
  * generate different row ids for it. The database rejects the second one
  * (unique on cycle + slot), and without this step that rejection
@@ -62,6 +82,7 @@ export async function syncNow({ onStatus = () => {} } = {}) {
   onStatus("syncing");
   noteSync("syncing");
   try {
+    await dropOrphans();
     await reconcileSlots();
 
     // ---- push ----
@@ -124,7 +145,7 @@ export async function syncNow({ onStatus = () => {} } = {}) {
   } catch (e) {
     console.error("sync failed", e);
     onStatus("error");
-    noteSync("error");
+    noteSync("error", undefined, e.message || String(e));
     return { error: e.message };
   }
 }

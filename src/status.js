@@ -11,6 +11,7 @@ const state = {
   sync: "local",         // local | syncing | synced | pending | error | offline
   pending: 0,
   signedIn: false,
+  lastError: null,
 };
 
 const subs = new Set();
@@ -28,10 +29,11 @@ export function noteWrite() {
   emit();
 }
 
-export function noteSync(kind, pending) {
+export function noteSync(kind, pending, error) {
   state.sync = kind;
   if (typeof pending === "number") state.pending = pending;
-  if (kind === "synced") state.lastSyncAt = Date.now();
+  if (kind === "synced") { state.lastSyncAt = Date.now(); state.lastError = null; }
+  if (error !== undefined) state.lastError = error;
   emit();
 }
 
